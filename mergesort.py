@@ -11,8 +11,9 @@
 '''
 
 import time
+import random
 
-#MergeSort
+#MergeSort 구현 부분
 def merge(left, right):
     result = []
     while len(left) > 0 or len(right) > 0:
@@ -38,7 +39,7 @@ def merge_sort(list):
     if len(list) <= 1:
         return list
 
-    mid = len(list) / 2
+    mid = int(len(list) / 2)
 
     leftList = list[:mid]
     rightList = list[mid:]
@@ -49,7 +50,7 @@ def merge_sort(list):
     return merge(leftList, rightList)
 
 
-#Bubble Sort
+#Bubble Sort 구현 부분
 def swap(x, i, j):
     x[i], x[j] = x[j], x[i]
 
@@ -58,23 +59,34 @@ def bubble_sort(x):
         for i in range(size):
             if x[i] > x[i+1]:
                 swap(x, i, i+1)
+    return x
 
 
-'''Testing Code'''
+#원활한 실험을 위한 Random Sized Array를 형성하는 함수
+def create_array(arr_size):
+    arr = []
+    for i in range(arr_size):
+        num = random.randint(-100,200)
+        arr.append(num)
+    return arr
 
-list = [100, 12, 100, 1, 1, 12, 100, 1, 12, 100, 1, 1]
-print(list)
+#크기 5,000의 random array로 구성된 배열(리스트)
+test_list = create_array(5000)
 
+'''실험부분'''
+#MergeSort로 Array를 병합정렬
 merge_start = time.time() 
-merge_result = merge_sort(list)
+merge_result = merge_sort(test_list)
 merge_end = time.time()
 
+#BubbleSort로 Array를 버블정렬
 bubble_start = time.time()
-bubble_result = bubble_sort(list)
+bubble_result = bubble_sort(test_list)
 bubble_end = time.time()
 
-bubble_time = int(merge_end - merge_start)
-print(merge_sort(list))
-print(bubble_start)
-print(bubble_end)
-print('{:02d}:{:02d}:{:02d}'.format(bubble_time // 3600, (bubble_time % 3600 // 60), bubble_time % 60))
+#각 정렬방법의 소요시간 계산
+merge_time = merge_end - merge_start #MergeSort 소요시간
+bubble_time = bubble_end - bubble_start #BubbleSort 소요시간
+
+print(merge_time) #0.06996011734008789, int형으로 약 0s에 근사
+print(bubble_time) #2.838104486465454, int형으로 약 2s에 근사
