@@ -1,19 +1,11 @@
 #-*- coding: utf-8 -*-
 
-'''
-1-1. 시간복잡도 O(n^2)이 소요되는 정렬 중 하나와 병합 정렬을 각각 구현한다. 분석에 의한 성능 차이를 실제 실험을 통해 확인한다.
-
- - 제출 내용: 1. 본인 코드 설명, 2. 두 정렬의 동일한 입력과 출력 화면, 3. 두 정렬의 소요 시간 비교 화면, 4. 소스 코드 파일
-
-1-2. 퀵 정렬을 구현한다. 기준(pivot)은 어떤 것이든 상관 없으나 재귀적으로 동일한 기준이어야한다.
-
- - 제출 내용: 1. 본인 코드 설명, 2. 입력, 출력, 소요 시간 화면, 3. 선택한 기준 값을 정한 이유 , 4. 소스 코드 파일
-'''
-
 import time
 import random
 
-#MergeSort 구현 부분
+'''MergeSort 구현 부분'''
+
+# 두 리스트를 합치는 함수 구현
 def merge(left, right):
     result = []
     while len(left) > 0 or len(right) > 0:
@@ -35,28 +27,39 @@ def merge(left, right):
             right = right[1:]
     return result
 
+# Mergesort 부분
 def merge_sort(list):
+
+    # 정렬할 데이터의 크기가 1보다 작거나 같으면 그대로 return (정렬할 것이 없음)
     if len(list) <= 1:
         return list
 
+    # 중간에 정렬할 middle 값을 설정하고, 나누어떨어지지 않는 경우 int형으로 처리
     mid = int(len(list) / 2)
 
+    # middle 값을 기준으로 작은 값, 큰 값을 분리
     leftList = list[:mid]
     rightList = list[mid:]
 
+    # 재귀적으로 전반부, 후반부를 정렬
     leftList = merge_sort(leftList)
     rightList = merge_sort(rightList)
 
+    # 정렬한 이후 merging 해주면서 결과값을 return
     return merge(leftList, rightList)
 
 
-#Bubble Sort 구현 부분
+'''Bubble Sort 구현 부분'''
+
+# 인접한 두 자료들의 위치를 바꾸어주는 swap 함수
 def swap(x, i, j):
     x[i], x[j] = x[j], x[i]
 
 def bubble_sort(x):
+    # 데이터의 크기에 따라서 반복해줌
     for size in reversed(range(len(x))):
         for i in range(size):
+            # 크기가 더 크면 swap함수를 통해 더 큰 것을 뒤로 보내줌
             if x[i] > x[i+1]:
                 swap(x, i, i+1)
     return x
@@ -74,6 +77,7 @@ def create_array(arr_size):
 test_list = create_array(5000)
 
 '''실험부분'''
+
 #MergeSort로 Array를 병합정렬
 merge_start = time.time() 
 merge_result = merge_sort(test_list)
