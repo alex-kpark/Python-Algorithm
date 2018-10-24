@@ -49,4 +49,8 @@ quick_end = time.time()
 
 #각 정렬방법의 소요시간 계산
 quick_time = quick_end - quick_start #퀵소트 소요시간
+<<<<<<< Updated upstream
 print(quick_time) #0.00999, int형으로 약 0에 근사
+=======
+print(quick_time) #0.008, int로 0에 근사
+>>>>>>> Stashed changes

@@ -24,8 +24,19 @@ def bubblesort(x):
                 swap(x, i, i+1)
     return x
 
+def insertsort(x):
+    for size in range(1, len(x)):
+        val = x[size] #현재 원소
+        i = size #현재 번 째를 의미
+        while i>0 and x[i-1]>val: #현재원소보다 마지막 원소가 커질 때 까지
+            x[i] = x[i-1] #마지막 원소를 그 전의 원소로 변경
+            i -= 1 # i는 하나 빼주면서 계속 다음 것으로 전진
+        x[i] = val #마지막 원소를 현재 원소로 지정
+    return x
+
+
 insert = [3,5,7,6,8,4,1]
-print(selectionSort(insert))
+print(insertsort(insert))
 
 
 
